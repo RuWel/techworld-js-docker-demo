@@ -37,7 +37,9 @@ pipeline {
             //     }
             // }
             when {
-                params.runTests
+                expression {
+                    params.runTests
+                }
             }
             steps {
                 echo "Testing..."
