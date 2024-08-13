@@ -1,4 +1,5 @@
 // CODE_CHANGES = getGitCodeChanges()
+def gv
 
 pipeline {
     agent any
@@ -18,6 +19,14 @@ pipeline {
         GITHUB_CREDENTIALS = credentials('GitHub');
     }
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "scripts/build.groovy"
+                }
+            }
+        }
+
         stage("build") {
             // when {
             //     expression {
@@ -25,8 +34,12 @@ pipeline {
             //     }
             // }
             steps {
-                echo "Building1... ${VERSION}"  // THIS IS OK
-                echo 'Building2... ${VERSION}'  // THIS IS NOT OK
+                script {
+                    gv.buildApp()
+                }
+
+                // echo "Building1... ${VERSION}"  // THIS IS OK
+                // echo 'Building2... ${VERSION}'  // THIS IS NOT OK
             }
         }
 
