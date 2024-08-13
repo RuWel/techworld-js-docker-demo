@@ -51,7 +51,7 @@ pipeline {
                 ]) {
                     echo "USERNAME = ${USERNAME}"
                 }
-                echo "Deploying..."
+                echo "Deploying...${params.VERSION}"
             }
         }
     }
