@@ -2,6 +2,17 @@
 
 pipeline {
     agent any
+
+    parameters {
+        choice(name: 'VERSION', choices: ['1.0', '1.1', '1.5'])
+        booleanParam(name: 'runTests', defaultValue: true)
+    
+    }
+
+    // tools {
+    //     maven 'Maven'
+    // }
+
     environment {
         VERSION = '1.0'
         GITHUB_CREDENTIALS = credentials('GitHub');
@@ -40,7 +51,7 @@ pipeline {
                 ]) {
                     echo "USERNAME = ${USERNAME}"
                 }
-                echo "Deploying...${USERNAME}"
+                echo "Deploying..."
             }
         }
     }
