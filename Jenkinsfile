@@ -34,7 +34,7 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(
-                        credentials: 'GitHub', 
+                        credentialsId: 'GitHub', 
                         usernameVariable: 'USERNAME', 
                         passwordVariable: 'PASSWORD')
                 ]) {
