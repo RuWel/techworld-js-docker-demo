@@ -36,6 +36,9 @@ pipeline {
             //         env.BRANCH_NAME == "master" || env.BRANCH_NAME == "dev"
             //     }
             // }
+            when {
+                params.runTests
+            }
             steps {
                 echo "Testing..."
             }
