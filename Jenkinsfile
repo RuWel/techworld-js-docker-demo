@@ -4,6 +4,7 @@ pipeline {
     agent any
     environment {
         VERSION = '1.0'
+        GITHUB_CREDENTIALS = credentials('GitHub');
     }
     stages {
         stage("build") {
@@ -13,8 +14,8 @@ pipeline {
             //     }
             // }
             steps {
-                echo "Building1... ${VERSION}"
-                echo 'Building2... ${VERSION}'
+                echo "Building1... ${VERSION}"  // THIS IS OK
+                echo 'Building2... ${VERSION}'  // THIS IS NOT OK
             }
         }
 
@@ -31,7 +32,15 @@ pipeline {
 
         stage("deploy") {
             steps {
-                echo "Deploying..."
+                withCredentials([
+                    usernamePassword(
+                        credentials: 'GitHub', 
+                        usernameVariable: 'USERNAME', 
+                        passwordVariable: 'PASSWORD')
+                ]) {
+                    echo "USERNAME = ${USERNAME}"
+                }
+                echo "Deploying...${USERNAME}"
             }
         }
     }
